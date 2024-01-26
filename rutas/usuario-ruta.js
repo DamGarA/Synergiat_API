@@ -19,14 +19,14 @@ router.get('/', (req, res) => {
 })
 
 router.post('/agregar-usuario', (req, res) => {
-    const nuevoUsuario = new ModeloUsuario({
-        nombre: req.body.nombre,
-        email: req.body.email,
-        telefono: req.body.telefono,
-        idUsuario: req.body.idUsuario,
-    })
+    // const nuevoUsuario = new ModeloUsuario({
+    //     nombre: req.body.nombre,
+    //     email: req.body.email,
+    //     telefono: req.body.telefono,
+    //     idUsuario: req.body.idUsuario,
+    // })
 
-    res.send('exito post')
+    res.send(req.body.nombre)
 
     // nuevoUsuario.save(function(err){
     //     if(!err){
