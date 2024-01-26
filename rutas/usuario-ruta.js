@@ -14,6 +14,10 @@ const schemaUsuario = new schema({
 const ModeloUsuario = mongoose.model('usuarios', schemaUsuario)
 module.exports = router
 
+router.get('/', (req, res) => {
+    res.send('entro el get')
+})
+
 router.post('/agregar-usuario', (req, res) => {
     const nuevoUsuario = new ModeloUsuario({
         nombre: req.body.nombre,
