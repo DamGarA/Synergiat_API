@@ -5,6 +5,14 @@ const mongoose = require('mongoose')
 const app = express()
 const PORT = process.env.PORT || 5000
 
+//Administracion de cors
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
+
 app.get('/', (req, res) => {
     res.end('Server 1 corriendo...')
 })
@@ -25,14 +33,6 @@ connectDB().then(() => {
         console.log(`Servidor funcionando en el puerto ${PORT}`)
     })
 })
-
-//Administracion de cors
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-  });
 
 //Rutas y modelo
 const rutaUsuario = require('./rutas/usuario-ruta')
