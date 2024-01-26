@@ -26,11 +26,13 @@ router.post('/agregar-usuario', (req, res) => {
         idUsuario: req.body.idUsuario,
     })
 
-    nuevoUsuario.save(function(err){
-        if(!err){
-            res.send('Exito al agregar el usuario')
-        } else {
-            res.send(err)
-        }
-    })
+    res.send('exito post')
+
+    // nuevoUsuario.save(function(err){
+    //     if(!err){
+    //         res.send('Exito al agregar el usuario')
+    //     } else {
+    //         res.send(err)
+    //     }
+    // })
 })
