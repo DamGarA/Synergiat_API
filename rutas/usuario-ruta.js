@@ -18,26 +18,46 @@ module.exports = router
 //Rutas
 
 //Obtener todos los usuarios
-router.get('/lista-usuarios', (req, res) => {
-    ModeloUsuario.find({})
-        .then(docs => {
-            res.send(docs);
-        })
-        .catch(err => {
-            res.send(err);
-        });
+// router.get('/lista-usuarios', (req, res) => {
+//     ModeloUsuario.find({})
+//         .then(docs => {
+//             res.send(docs);
+//         })
+//         .catch(err => {
+//             res.send(err);
+//         });
+// });
+
+router.get('/lista-usuarios', async (req, res) => {
+    try {
+        const docs = await ModeloUsuario.find({});
+        res.send(docs);
+    } catch (err) {
+        res.status(500).send(err.message || 'Error interno del servidor');
+    }
 });
 
+
 //Obtener todos los usuarios
-router.post('/obtener-usuario-id', (req, res) => {
-    ModeloUsuario.find({idUsuario: req.body.idUsuario})
-        .then(docs => {
-            res.send(docs);
-        })
-        .catch(err => {
-            res.send(err);
-        });
+// router.post('/obtener-usuario-id', (req, res) => {
+//     ModeloUsuario.find({idUsuario: req.body.idUsuario})
+//         .then(docs => {
+//             res.send(docs);
+//         })
+//         .catch(err => {
+//             res.send(err);
+//         });
+// });
+
+router.post('/obtener-usuario-id', async (req, res) => {
+    try {
+        const docs = await ModeloUsuario.find({ idUsuario: req.body.idUsuario });
+        res.send(docs);
+    } catch (err) {
+        res.status(500).send(err.message || 'Error interno del servidor');
+    }
 });
+
 
 //Agregar un usuario
 router.post('/agregar-usuario', async (req, res) => {
@@ -58,26 +78,6 @@ router.post('/agregar-usuario', async (req, res) => {
 });
 
 //Editar usuario
-// router.post('/editar-usuario', (req, res) => {
-//     const idUsuario = req.body.idUsuario;
-//     const nuevosDatos = {
-//         nombre: req.body.nombre,
-//         email: req.body.email,
-//         telefono: req.body.telefono
-//     };
-
-//     ModeloUsuario.findOneAndUpdate({ idUsuario: idUsuario }, nuevosDatos, { new: true })
-//         .then(docs => {
-//             if (!docs) {
-//                 return res.status(404).send('Usuario no encontrado');
-//             }
-//             res.send('Usuario actualizado exitosamente');
-//         })
-//         .catch(err => {
-//             res.send(err);
-//         });
-// });
-
 router.post('/editar-usuario', async (req, res) => {
     try {
         const idUsuario = req.body.idUsuario;
@@ -101,19 +101,6 @@ router.post('/editar-usuario', async (req, res) => {
 
 
 //Borrar usuario
-// router.delete('/', (req, res) => {
-//     ModeloUsuario.findOneAndDelete({ idUsuario: req.query.idUsuario })
-//         .then(docs => {
-//             if (!docs) {
-//                 return res.status(404).send('Usuario no encontrado');
-//             }
-//             res.send('Usuario borrado exitosamente');
-//         })
-//         .catch(err => {
-//             res.send(err);
-//         });
-// });
-
 router.delete('/', async (req, res) => {
     try {
         const docs = await ModeloUsuario.findOneAndDelete({ idUsuario: req.query.idUsuario });
