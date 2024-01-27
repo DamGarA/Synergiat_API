@@ -14,10 +14,21 @@ const schemaUsuario = new schema({
 const ModeloUsuario = mongoose.model('usuarios', schemaUsuario)
 module.exports = router
 
-router.get('/', (req, res) => {
-    res.send('entro el get')
+//Rutas
+
+//Obtener todos los usuarios
+router.get('/lista-usuarios', (req, res) => {
+    ModeloUsuario.find({}, function(docs, err) {
+        if(!err){
+            res.send(docs)
+        } else {
+            res.send(err)
+        }
+
+    })
 })
 
+//Agregar un usuario
 router.post('/agregar-usuario', async (req, res) => {
     try {
         const nuevoUsuario = new ModeloUsuario({
@@ -34,3 +45,4 @@ router.post('/agregar-usuario', async (req, res) => {
         res.status(500).send(error);
     }
 });
+
