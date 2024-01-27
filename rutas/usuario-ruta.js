@@ -77,3 +77,16 @@ router.post('/editar-usuario', (req, res) => {
         });
 });
 
+//Borrar usuario
+router.delete('/', (req, res) => {
+    ModeloUsuario.findOneAndDelete({ idUsuario: req.body.idUsuario })
+        .then(docs => {
+            if (!docs) {
+                return res.status(404).send('Usuario no encontrado');
+            }
+            res.send('Usuario borrado exitosamente');
+        })
+        .catch(err => {
+            res.send(err);
+        });
+});
