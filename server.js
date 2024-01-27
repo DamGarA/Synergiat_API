@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const app = express()
 const PORT = process.env.PORT || 5000
 
+//Leer .json
 app.use(express.json());
 
 //Administracion de cors
@@ -15,10 +16,12 @@ app.use((req, res, next) => {
     next();
 });
 
+//Ruta para verificacion de funcionamiento
 app.get('/', (req, res) => {
-    res.end('Server 1 corriendo...')
+    res.end('Servidor funcionando correctamente')
 })
 
+//Conexion con la base de datos
 mongoose.set('strictQuery', false)
 const connectDB = async() => {
     try {
@@ -36,7 +39,7 @@ connectDB().then(() => {
     })
 })
 
-//Rutas y modelo
+//Rutas
 const rutaUsuario = require('./rutas/usuario-ruta')
 
 app.use('/api/usuario', rutaUsuario)

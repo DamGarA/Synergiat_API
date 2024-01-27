@@ -4,6 +4,7 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
+//Definicion del modelo del usuario
 const schemaUsuario = new schema({
     nombre: String,
     email: String,
