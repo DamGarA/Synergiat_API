@@ -101,15 +101,29 @@ router.post('/editar-usuario', async (req, res) => {
 
 
 //Borrar usuario
-router.delete('/', (req, res) => {
-    ModeloUsuario.findOneAndDelete({ idUsuario: req.query.idUsuario })
-        .then(docs => {
-            if (!docs) {
-                return res.status(404).send('Usuario no encontrado');
-            }
-            res.send('Usuario borrado exitosamente');
-        })
-        .catch(err => {
-            res.send(err);
-        });
+// router.delete('/', (req, res) => {
+//     ModeloUsuario.findOneAndDelete({ idUsuario: req.query.idUsuario })
+//         .then(docs => {
+//             if (!docs) {
+//                 return res.status(404).send('Usuario no encontrado');
+//             }
+//             res.send('Usuario borrado exitosamente');
+//         })
+//         .catch(err => {
+//             res.send(err);
+//         });
+// });
+
+router.delete('/', async (req, res) => {
+    try {
+        const docs = await ModeloUsuario.findOneAndDelete({ idUsuario: req.query.idUsuario });
+
+        if (!docs) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+        res.send('Usuario borrado exitosamente');
+    } catch (err) {
+        res.status(500).send(err.message || 'Error interno del servidor');
+    }
 });
