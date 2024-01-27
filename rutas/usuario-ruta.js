@@ -27,6 +27,17 @@ router.get('/lista-usuarios', (req, res) => {
         });
 });
 
+//Obtener todos los usuarios
+router.post('/obtener-usuario-id', (req, res) => {
+    ModeloUsuario.find({idUsuario: req.body.idUsuario})
+        .then(docs => {
+            res.send(docs);
+        })
+        .catch(err => {
+            res.send(err);
+        });
+});
+
 //Agregar un usuario
 router.post('/agregar-usuario', async (req, res) => {
     try {
