@@ -58,25 +58,47 @@ router.post('/agregar-usuario', async (req, res) => {
 });
 
 //Editar usuario
-router.post('/editar-usuario', (req, res) => {
-    const idUsuario = req.body.idUsuario;
-    const nuevosDatos = {
-        nombre: req.body.nombre,
-        email: req.body.email,
-        telefono: req.body.telefono
-    };
+// router.post('/editar-usuario', (req, res) => {
+//     const idUsuario = req.body.idUsuario;
+//     const nuevosDatos = {
+//         nombre: req.body.nombre,
+//         email: req.body.email,
+//         telefono: req.body.telefono
+//     };
 
-    ModeloUsuario.findOneAndUpdate({ idUsuario: idUsuario }, nuevosDatos, { new: true })
-        .then(docs => {
-            if (!docs) {
-                return res.status(404).send('Usuario no encontrado');
-            }
-            res.send('Usuario actualizado exitosamente');
-        })
-        .catch(err => {
-            res.send(err);
-        });
+//     ModeloUsuario.findOneAndUpdate({ idUsuario: idUsuario }, nuevosDatos, { new: true })
+//         .then(docs => {
+//             if (!docs) {
+//                 return res.status(404).send('Usuario no encontrado');
+//             }
+//             res.send('Usuario actualizado exitosamente');
+//         })
+//         .catch(err => {
+//             res.send(err);
+//         });
+// });
+
+router.post('/editar-usuario', async (req, res) => {
+    try {
+        const idUsuario = req.body.idUsuario;
+        const nuevosDatos = {
+            nombre: req.body.nombre,
+            email: req.body.email,
+            telefono: req.body.telefono
+        };
+
+        const docs = await ModeloUsuario.findOneAndUpdate({ idUsuario: idUsuario }, nuevosDatos, { new: true });
+
+        if (!docs) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+        res.send('Usuario actualizado exitosamente');
+    } catch (err) {
+        res.status(500).send(err.message || 'Error interno del servidor');
+    }
 });
+
 
 //Borrar usuario
 router.delete('/', (req, res) => {
