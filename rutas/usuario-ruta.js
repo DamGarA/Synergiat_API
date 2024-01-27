@@ -66,8 +66,8 @@ router.post('/editar-usuario', (req, res) => {
     };
 
     ModeloUsuario.findOneAndUpdate({ idUsuario: idUsuario }, nuevosDatos, { new: true })
-        .then(res => {
-            if (!res) {
+        .then(docs => {
+            if (!docs) {
                 return res.status(404).send('Usuario no encontrado');
             }
             res.send('Usuario actualizado exitosamente');
