@@ -18,16 +18,6 @@ module.exports = router
 //Rutas
 
 //Obtener todos los usuarios
-// router.get('/lista-usuarios', (req, res) => {
-//     ModeloUsuario.find({})
-//         .then(docs => {
-//             res.send(docs);
-//         })
-//         .catch(err => {
-//             res.send(err);
-//         });
-// });
-
 router.get('/lista-usuarios', async (req, res) => {
     try {
         const docs = await ModeloUsuario.find({});
@@ -38,17 +28,7 @@ router.get('/lista-usuarios', async (req, res) => {
 });
 
 
-//Obtener todos los usuarios
-// router.post('/obtener-usuario-id', (req, res) => {
-//     ModeloUsuario.find({idUsuario: req.body.idUsuario})
-//         .then(docs => {
-//             res.send(docs);
-//         })
-//         .catch(err => {
-//             res.send(err);
-//         });
-// });
-
+//Obtener un usuario por su ID
 router.post('/obtener-usuario-id', async (req, res) => {
     try {
         const docs = await ModeloUsuario.find({ idUsuario: req.body.idUsuario });
@@ -78,7 +58,7 @@ router.post('/agregar-usuario', async (req, res) => {
 });
 
 //Editar usuario
-router.post('/editar-usuario', async (req, res) => {
+router.put('/editar-usuario', async (req, res) => {
     try {
         const idUsuario = req.body.idUsuario;
         const nuevosDatos = {
