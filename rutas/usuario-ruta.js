@@ -56,3 +56,24 @@ router.post('/agregar-usuario', async (req, res) => {
     }
 });
 
+//Editar usuario
+router.post('/editar-usuario', (req, res) => {
+    const idUsuario = req.body.idUsuario;
+    const nuevosDatos = {
+        nombre: req.body.nombre,
+        email: req.body.email,
+        telefono: req.body.telefono
+    };
+
+    ModeloUsuario.findOneAndUpdate({ idUsuario: idUsuario }, nuevosDatos, { new: true })
+        .then(res => {
+            if (!res) {
+                return res.status(404).send('Usuario no encontrado');
+            }
+            res.send(res);
+        })
+        .catch(err => {
+            res.send(err);
+        });
+});
+
