@@ -18,19 +18,19 @@ router.get('/', (req, res) => {
     res.send('entro el get')
 })
 
-router.post('/agregar-usuario', (req, res) => {
-    const nuevoUsuario = new ModeloUsuario({
-        nombre: req.body.nombre,
-        email: req.body.email,
-        telefono: req.body.telefono,
-        idUsuario: req.body.idUsuario,
-    })
+router.post('/agregar-usuario', async (req, res) => {
+    try {
+        const nuevoUsuario = new ModeloUsuario({
+            nombre: req.body.nombre,
+            email: req.body.email,
+            telefono: req.body.telefono,
+            idUsuario: req.body.idUsuario,
+        });
 
-    nuevoUsuario.save(function(err){
-        if(!err){
-            res.send('Exito al agregar el usuario')
-        } else {
-            res.send(err)
-        }
-    })
-})
+        await nuevoUsuario.save();
+        res.send('Exito al agregar el usuario');
+    } catch (error) {
+        console.error('Error al guardar en la base de datos:', error);
+        res.status(500).send(error);
+    }
+});
