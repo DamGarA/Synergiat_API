@@ -18,15 +18,14 @@ module.exports = router
 
 //Obtener todos los usuarios
 router.get('/lista-usuarios', (req, res) => {
-    ModeloUsuario.find({}, function(docs, err) {
-        if(!err){
-            res.send(docs)
-        } else {
-            res.send(err)
-        }
-
-    })
-})
+    ModeloUsuario.find({})
+        .then(docs => {
+            res.send(docs);
+        })
+        .catch(err => {
+            res.send(err);
+        });
+});
 
 //Agregar un usuario
 router.post('/agregar-usuario', async (req, res) => {
