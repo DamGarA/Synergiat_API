@@ -70,7 +70,7 @@ router.post('/editar-usuario', (req, res) => {
             if (!res) {
                 return res.status(404).send('Usuario no encontrado');
             }
-            res.send(res);
+            res.send('Usuario actualizado exitosamente');
         })
         .catch(err => {
             res.send(err);
